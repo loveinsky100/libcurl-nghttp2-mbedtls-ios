@@ -84,7 +84,7 @@ done
 popd
 mkdir lib || true
 lipo -create ${CURRENTPATH}/bin/iPhoneSimulator${SDKVERSION}-i386.sdk/libcares.a ${CURRENTPATH}/bin/iPhoneSimulator${SDKVERSION}-x86_64.sdk/libcares.a  ${CURRENTPATH}/bin/iPhoneOS${SDKVERSION}-armv7.sdk/libcares.a ${CURRENTPATH}/bin/iPhoneOS${SDKVERSION}-armv7s.sdk/libcares.a ${CURRENTPATH}/bin/iPhoneOS${SDKVERSION}-arm64.sdk/libcares.a -output ${CURRENTPATH}/lib/libcares.a
-mkdir -p include/cares || true
+mkdir -p include || true
 cp -f c-ares-${CARES_VERSION}/ares.h c-ares-${CARES_VERSION}/ares_build.h c-ares-${CARES_VERSION}/ares_dns.h c-ares-${CARES_VERSION}/ares_rules.h c-ares-${CARES_VERSION}/ares_version.h include/
 sed -i '' $'s/\#define CARES_SIZEOF_LONG 8/\#ifdef __LP64__\\\n\#define CARES_SIZEOF_LONG 8\\\n#else\\\n\#define CARES_SIZEOF_LONG 4\\\n\#endif/' include/cares/ares_build.h
 

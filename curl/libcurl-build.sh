@@ -41,7 +41,7 @@ else
 fi
 
 if [ -z $1 ]; then
-	CURL_VERSION="curl-7.52.1"
+	CURL_VERSION="curl-7.51.0"
 else
 	CURL_VERSION="curl-$1"
 fi
@@ -103,10 +103,10 @@ buildIOS()
 	echo "Building ${CURL_VERSION} for ${PLATFORM} ${IOS_SDK_VERSION} ${ARCH} ${BITCODE}"
 
 	if [[ "${ARCH}" == "arm64" ]]; then
-		./configure -prefix="/tmp/${CURL_VERSION}-iOS-${ARCH}-${BITCODE}" --enable-ipv6 --disable-debug -disable-shared --enable-static -with-random=/dev/urandom --with-mbedtls=${MBEDTLS} ${NGHTTP2CFG} --enable-ares=${CARES}/lib --host="arm-apple-darwin" &> "/tmp/${CURL_VERSION}-iOS-${ARCH}-${BITCODE}.log"
+		./configure -prefix="/tmp/${CURL_VERSION}-iOS-${ARCH}-${BITCODE}" --enable-ipv6 --disable-debug -disable-shared --enable-static -with-random=/dev/urandom --with-mbedtls=${MBEDTLS} ${NGHTTP2CFG} --enable-ares=${CARES} --host="arm-apple-darwin" &> "/tmp/${CURL_VERSION}-iOS-${ARCH}-${BITCODE}.log"
 		# ./configure -prefix="/tmp/${CURL_VERSION}-iOS-${ARCH}-${BITCODE}" --enable-ipv6 -disable-shared --enable-static -with-random=/dev/urandom --host="arm-apple-darwin" --with-darwinssl ${NGHTTP2CFG} --enable-threaded-resolver &> "/tmp/${CURL_VERSION}-iOS-${ARCH}-${BITCODE}.log"
 	else
-		./configure -prefix="/tmp/${CURL_VERSION}-iOS-${ARCH}-${BITCODE}" --enable-ipv6 --disable-debug -disable-shared --enable-static -with-random=/dev/urandom --with-mbedtls=${MBEDTLS} ${NGHTTP2CFG} --enable-ares=${CARES}/lib --host="${ARCH}-apple-darwin" &> "/tmp/${CURL_VERSION}-iOS-${ARCH}-${BITCODE}.log"
+		./configure -prefix="/tmp/${CURL_VERSION}-iOS-${ARCH}-${BITCODE}" --enable-ipv6 --disable-debug -disable-shared --enable-static -with-random=/dev/urandom --with-mbedtls=${MBEDTLS} ${NGHTTP2CFG} --enable-ares=${CARES} --host="${ARCH}-apple-darwin" &> "/tmp/${CURL_VERSION}-iOS-${ARCH}-${BITCODE}.log"
 		# ./configure -prefix="/tmp/${CURL_VERSION}-iOS-${ARCH}-${BITCODE}" --enable-ipv6 -disable-shared --enable-static -with-random=/dev/urandom --host="${ARCH}-apple-darwin" --with-darwinssl ${NGHTTP2CFG} --enable-threaded-resolver &> "/tmp/${CURL_VERSION}-iOS-${ARCH}-${BITCODE}.log"
 	fi
 
