@@ -41,13 +41,15 @@ else
 fi
 
 if [ -z $1 ]; then
-	CURL_VERSION="curl-7.50.1"
+	CURL_VERSION="curl-7.52.1"
 else
 	CURL_VERSION="curl-$1"
 fi
 
+CARES="${PWD}/../cares"
 MBEDTLS="${PWD}/../mbedtls"  
 DEVELOPER=`xcode-select -print-path`
+
 IPHONEOS_DEPLOYMENT_TARGET="6.0"
 
 # HTTP2 support
@@ -96,15 +98,15 @@ buildIOS()
 	export BUILD_TOOLS="${DEVELOPER}"
 	export CC="${BUILD_TOOLS}/usr/bin/gcc"
 	export CFLAGS="-arch ${ARCH} -pipe -Os -gdwarf-2 -isysroot ${CROSS_TOP}/SDKs/${CROSS_SDK} -miphoneos-version-min=${IOS_MIN_SDK_VERSION} ${CC_BITCODE_FLAG}"
-	export LDFLAGS="-arch ${ARCH} -isysroot ${CROSS_TOP}/SDKs/${CROSS_SDK} -L${MBEDTLS}/lib ${NGHTTP2LIB}"
+	export LDFLAGS="-arch ${ARCH} -isysroot ${CROSS_TOP}/SDKs/${CROSS_SDK} -L${MBEDTLS}/lib ${NGHTTP2LIB} -L${CARES}/lib"
    
 	echo "Building ${CURL_VERSION} for ${PLATFORM} ${IOS_SDK_VERSION} ${ARCH} ${BITCODE}"
 
 	if [[ "${ARCH}" == "arm64" ]]; then
-		./configure -prefix="/tmp/${CURL_VERSION}-iOS-${ARCH}-${BITCODE}" --enable-ipv6 --disable-debug -disable-shared --enable-static -with-random=/dev/urandom --with-mbedtls=${MBEDTLS} ${NGHTTP2CFG} --host="arm-apple-darwin" --enable-threaded-resolver &> "/tmp/${CURL_VERSION}-iOS-${ARCH}-${BITCODE}.log"
+		./configure -prefix="/tmp/${CURL_VERSION}-iOS-${ARCH}-${BITCODE}" --enable-ipv6 --disable-debug -disable-shared --enable-static -with-random=/dev/urandom --with-mbedtls=${MBEDTLS} ${NGHTTP2CFG} --enable-ares=${CARES}/lib --host="arm-apple-darwin" &> "/tmp/${CURL_VERSION}-iOS-${ARCH}-${BITCODE}.log"
 		# ./configure -prefix="/tmp/${CURL_VERSION}-iOS-${ARCH}-${BITCODE}" --enable-ipv6 -disable-shared --enable-static -with-random=/dev/urandom --host="arm-apple-darwin" --with-darwinssl ${NGHTTP2CFG} --enable-threaded-resolver &> "/tmp/${CURL_VERSION}-iOS-${ARCH}-${BITCODE}.log"
 	else
-		./configure -prefix="/tmp/${CURL_VERSION}-iOS-${ARCH}-${BITCODE}" --enable-ipv6 --disable-debug -disable-shared --enable-static -with-random=/dev/urandom --with-mbedtls=${MBEDTLS} ${NGHTTP2CFG} --host="${ARCH}-apple-darwin" --enable-threaded-resolver &> "/tmp/${CURL_VERSION}-iOS-${ARCH}-${BITCODE}.log"
+		./configure -prefix="/tmp/${CURL_VERSION}-iOS-${ARCH}-${BITCODE}" --enable-ipv6 --disable-debug -disable-shared --enable-static -with-random=/dev/urandom --with-mbedtls=${MBEDTLS} ${NGHTTP2CFG} --enable-ares=${CARES}/lib --host="${ARCH}-apple-darwin" &> "/tmp/${CURL_VERSION}-iOS-${ARCH}-${BITCODE}.log"
 		# ./configure -prefix="/tmp/${CURL_VERSION}-iOS-${ARCH}-${BITCODE}" --enable-ipv6 -disable-shared --enable-static -with-random=/dev/urandom --host="${ARCH}-apple-darwin" --with-darwinssl ${NGHTTP2CFG} --enable-threaded-resolver &> "/tmp/${CURL_VERSION}-iOS-${ARCH}-${BITCODE}.log"
 	fi
 

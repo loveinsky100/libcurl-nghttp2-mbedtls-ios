@@ -13,6 +13,7 @@
 MBEDTLS="2.4.0"
 LIBCURL="7.51.0"
 NGHTTP2="1.14.0"
+CARES="1.12.0"
 
 ########################################
 
@@ -34,6 +35,13 @@ echo
 echo "Building mbedtls"
 cd mbedtls 
 ./mbedtls-build.sh "$MBEDTLS"
+# echo "using darwinssl now"
+cd ..
+
+echo
+echo "Building c-ares"
+cd cares 
+./build-c-ares.sh "$CARES"
 # echo "using darwinssl now"
 cd ..
 
