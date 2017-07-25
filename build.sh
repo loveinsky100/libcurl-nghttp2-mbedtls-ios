@@ -81,6 +81,7 @@ mkdir -p "$ARCHIVE"
 cp curl/lib/*.a $ARCHIVE
 cp mbedtls/lib/*.a $ARCHIVE
 cp nghttp2/lib/*.a $ARCHIVE
+cp cares/lib/*.a $ARCHIVE
 echo "Archiving Mac binaries for curl and openssl..."
 mv /tmp/curl $ARCHIVE
 mv /tmp/openssl $ARCHIVE

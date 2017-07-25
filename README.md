@@ -1,6 +1,6 @@
 使用build.sh编译
 
-支持http2.0，支持ipv6，支持https
+支持http2.0，支持ipv6，支持https，支持c-areas
 
 脚本使用mbedtls的原因是openssl打出的静态库过于庞大，使用mbedtls构建出的静态库大小大约是openssl的1/4
 
@@ -11,6 +11,7 @@
     MBEDTLS="2.4.0"
     LIBCURL="7.51.0"
     NGHTTP2="1.14.0"
+    CARES="1.8.0"
 
 脚本最低支持ios为ios7，如果需要修改，请到相应目录下的shell脚本中修改。
 
