@@ -17,6 +17,12 @@
 
 脚本最低支持ios为ios7，如果需要修改，请到相应目录下的shell脚本中修改。
 
+prebuild:
+
+```
+libcurl/7.54.1 mbedTLS/2.4.0 zlib/1.2.8 c-ares/1.8.0 nghttp2/1.24.0
+```
+
 相关链接：
 
 [https://github.com/jasonacox/Build-OpenSSL-cURL.git](https://github.com/jasonacox/Build-OpenSSL-cURL.git)
