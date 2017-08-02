@@ -1,5 +1,7 @@
 使用build.sh编译
 
+在最新的mac系统中编译需要注意，在curl的configure文件中将curl_func_clock_gettime修改为no，否则ios10一下的设备crash
+
 支持http2.0，支持ipv6，支持https，支持c-areas
 
 脚本使用mbedtls的原因是openssl打出的静态库过于庞大，使用mbedtls构建出的静态库大小大约是openssl的1/4
